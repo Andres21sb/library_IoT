@@ -58,7 +58,6 @@ def envio_datos():
 # Ruta para manejar la petición de EnvioLog
 @app.route('/envio-log', methods=['POST'])
 def envio_log():
-    print('Entrando en peticion ',request.form)
     # Recuperar los datos enviados en la petición POST
     idlog = request.form['idlog']
     description = request.form['description']
