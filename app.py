@@ -53,3 +53,20 @@ def envio_datos():
     print('Datos recibidos: ', data)
     # return 200 and message Datos recibidos
     return 'Datos recibidos'
+
+
+# Ruta para manejar la petición de EnvioLog
+@app.route('/envio-log', methods=['POST'])
+def envio_log():
+    print('Entrando en peticion ',request.form)
+    # Recuperar los datos enviados en la petición POST
+    idlog = request.form['idlog']
+    description = request.form['description']
+    
+    print('Datos de log recibidos: ', idlog, description)
+    
+    # Devolver una respuesta, por ejemplo un mensaje de éxito
+    return 'Datos de log recibidos correctamente'
+
+if __name__ == '__main__':
+    app.run(debug=True)
