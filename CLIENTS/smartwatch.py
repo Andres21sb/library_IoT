@@ -7,6 +7,7 @@ fecha: 2020-04-24
 import requests
 import time
 import random
+from concurrent.futures import ThreadPoolExecutor
 
 #Definir intervalo de tiempo que espera el smartwatch para volver a hacer la lectura y enviar los datos
 intervalo = 5
@@ -40,8 +41,10 @@ while True:
     frecuencia = leer_frecuencia()
     print('Frecuencia actual: ', frecuencia)
     
-    #enviar datos por http
-    enviar_datos(frecuencia)
+    # Crear un ThreadPoolExecutor para ejecutar la función enviar_datos en un hilo separado
+    with ThreadPoolExecutor() as executor:
+        # Ejecutar la función enviar_datos con la frecuencia como argumento
+        executor.submit(enviar_datos, frecuencia)
     
     #Esperar un tiempo antes de volver a leer la frecuencia cardiaca
     time.sleep(intervalo)

@@ -7,6 +7,7 @@ fecha: 2020-04-24
 import requests
 import time
 import random
+from concurrent.futures import ThreadPoolExecutor
 
 #Definir intervalo de tiempo que espera el medidor para volver a hacer la lectura y enviar los datos
 intervalo = 5
@@ -41,8 +42,10 @@ while True:
     corriente = leer_corriente()
     print('Corriente actual: ', corriente)
     
-    #enviar datos por http
-    enviar_datos(corriente)
+    # Crear un ThreadPoolExecutor para ejecutar la función enviar_datos en un hilo separado
+    with ThreadPoolExecutor() as executor:
+        # Ejecutar la función enviar_datos con la corriente como argumento
+        executor.submit(enviar_datos, corriente)
     
     #Esperar un tiempo antes de volver a leer la corriente
     time.sleep(intervalo)
