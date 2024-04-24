@@ -83,5 +83,21 @@ def temperatura():
     return 'Temperatura recibida correctamente por el servidor'
 
 
+@app.route('/corriente', methods=['POST'])
+def corriente():
+    # Recuperar los datos enviados en la petición POST
+    corriente = request.form['corriente']
+    print('Corriente recibida: ', corriente)
+    # Devolver una respuesta
+    return 'Corriente recibida correctamente por el servidor'
+
+@app.route('/frecuencia', methods=['POST'])
+def frecuencia():
+    # Recuperar los datos enviados en la petición POST
+    frecuencia = request.form['frecuencia']
+    print('Frecuencia recibida: ', frecuencia)
+    # Devolver una respuesta
+    return 'Frecuencia recibida correctamente por el servidor'
+
 if __name__ == '__main__':
     app.run(debug=True)
