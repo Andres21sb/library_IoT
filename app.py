@@ -1,3 +1,10 @@
+'''
+autor: Andrés Méndez Solano
+fecha: 2020-04-22
+    
+        Este script se encarga de levantar un servidor web con Flask y de definir las rutas para recibir los datos de dispositivos IoT
+'''
+
 from flask import Flask, request
 app = Flask(__name__)
 
@@ -66,6 +73,15 @@ def envio_log():
     
     # Devolver una respuesta, por ejemplo un mensaje de éxito
     return 'Datos de log recibidos correctamente'
+
+@app.route('/temperatura', methods=['POST'])
+def temperatura():
+    # Recuperar los datos enviados en la petición POST
+    temperatura = request.form['temperatura']
+    print('Temperatura recibida: ', temperatura)
+    # Devolver una respuesta
+    return 'Temperatura recibida correctamente por el servidor'
+
 
 if __name__ == '__main__':
     app.run(debug=True)
