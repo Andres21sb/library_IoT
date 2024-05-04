@@ -23,42 +23,8 @@ def test():
 # Ruta para manejar la petición de EnvioDatos
 @app.route('/envio-datos', methods=['POST'])
 def envio_datos():
-    # Recuperar los datos enviados en la petición POST
-    idlog = request.form['idlog']
-    tr = request.form['tr']
-    ta = request.form['ta']
-    tc = request.form['tc']
-    tb = request.form['tb']
-    tv = request.form['tv']
-    hr = request.form['hr']
-    ha = request.form['ha']
-    hc = request.form['hc']
-    hb = request.form['hb']
-    hv = request.form['hv']
-    ca = request.form['ca']
-    ne = request.form['ne']
-    le = request.form['le']
-    uv = request.form['uv']
-    # Add to dictionary to print
-    data = {
-        'idlog': idlog,
-        'tr': tr,
-        'ta': ta,
-        'tc': tc,
-        'tb': tb,
-        'tv': tv,
-        'hr': hr,
-        'ha': ha,
-        'hc': hc,
-        'hb': hb,
-        'hv': hv,
-        'ca': ca,
-        'ne': ne,
-        'le': le,
-        'uv': uv
-    }
+    data = request.form['data']
     print('Datos recibidos: ', data)
-    # return 200 and message Datos recibidos
     return 'Datos recibidos'
 
 

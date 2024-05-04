@@ -4,50 +4,24 @@ fecha: 2020-04-24
 
     Este script se encarga de la lectura de los datos del termostato y de enviarlos al servidor
 '''
-import requests
-import time
+import threading
 import random
-from concurrent.futures import ThreadPoolExecutor
+from ..library.iot_library import register_publisher
 
-#Definir intervalo de tiempo que espera el termostato para volver a hacer la lectura y enviar los datos
+# Definir intervalo de tiempo que espera el termostato para volver a hacer la lectura y enviar los datos
 intervalo = 5
 
-#Funcion para simular la lectura de la temperatura
+# Funcion para simular la lectura de la temperatura
 def leer_temperatura():
-    #Simular lectura dentro de un rango especifico
+    # Simular lectura dentro de un rango especifico
     temperatura = round(random.uniform(15, 30), 2)
-    #random.uniform(15, 30) genera un número aleatorio entre 15 y 30
-    #round(numero, 2) redondea el número a dos decimales
-    return temperatura
+    # random.uniform(15, 30) genera un número aleatorio entre 15 y 30
+    # round(numero, 2) redondea el número a dos decimales
+    return {'temperatura': temperatura}
 
-#Funcion para enviar datos por http
-def enviar_datos(temperatura):
-    #URL del servidor
-    url = 'https://library-iot.onrender.com/temperatura'
-    #Datos a enviar
-    datos={'temperatura': temperatura}
-    #intentar enviar los datos
-    try:
-        #Enviar petición POST al servidor
-        response = requests.post(url, data=datos)
-        #impresión de respuesta
-        print(response.text)
-    except requests.exceptions.RequestException as e:
-        #En caso de error al enviar los datos
-        print('Excepcion -> ',e)
-        
+# URL del servidor
+url = 'https://library-iot.onrender.com/temperatura'
 
-
-#El loop principal del termostato se va a ejecutar indefinidamente
-while True:
-    #Leer la temperatura del termostato
-    temperatura = leer_temperatura()
-    print('Temperatura actual: ', temperatura)
-    
-    # Crear un ThreadPoolExecutor para ejecutar la función enviar_datos en un hilo separado
-    with ThreadPoolExecutor() as executor:
-        # Ejecutar la función enviar_datos con la temperatura como argumento
-        executor.submit(enviar_datos, temperatura)
-    
-    #Esperar un tiempo antes de volver a leer la temperatura
-    time.sleep(intervalo)
+# Crear y empezar un hilo para el termostato
+hilo = threading.Thread(target=register_publisher, args=(leer_temperatura, intervalo, url))
+hilo.start()
