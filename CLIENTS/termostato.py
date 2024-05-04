@@ -6,7 +6,7 @@ fecha: 2020-04-24
 '''
 import threading
 import random
-from ..library.iot_library import register_publisher
+from library.iot_library import register_publisher
 
 # Definir intervalo de tiempo que espera el termostato para volver a hacer la lectura y enviar los datos
 intervalo = 5
@@ -20,7 +20,7 @@ def leer_temperatura():
     return {'temperatura': temperatura}
 
 # URL del servidor
-url = 'https://library-iot.onrender.com/temperatura'
+url = 'https://library-iot.onrender.com/envio-datos'
 
 # Crear y empezar un hilo para el termostato
 hilo = threading.Thread(target=register_publisher, args=(leer_temperatura, intervalo, url))

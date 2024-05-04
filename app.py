@@ -24,7 +24,7 @@ def test():
 @app.route('/envio-datos', methods=['POST'])
 def envio_datos():
     data = request.form['data']
-    print('Datos recibidos: ', data)
+    print('Datos recibidos: ', data.temperatura)
     return 'Datos recibidos'
 
 
