@@ -26,8 +26,9 @@ def leer_temperatura():
     return {'temperatura': temperatura,'timestamp': timestamp}
 
 # URL del servidor
-url = 'http://127.0.0.1:5000/publishers'
+#url = 'http://127.0.0.1:5000/publishers'
+url = 'https://library-iot.onrender.com/publishers'
 
 # Crear y empezar un hilo para el termostato
-hilo = threading.Thread(target=register_publisher, args=(leer_temperatura, intervalo, url,publisher))
+hilo = threading.Thread(target=register_publisher, args=(leer_temperatura, intervalo, url,publisher,True))
 hilo.start()
