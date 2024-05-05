@@ -16,8 +16,8 @@ def test():
     return 'Test from flask API'
 
 
-# Ruta para manejar la petición de EnvioDatos
-@app.route('/envio-datos', methods=['POST'])
+# Ruta para manejar el post de los datos de los dispositivos publishers IoT
+@app.route('/publishers', methods=['POST'])
 def envio_datos():
     data = request.get_json()
     for key, value in data.items():

@@ -25,7 +25,7 @@ def leer_frecuencia():
     return {'frecuencia': frecuencia,'timestamp': timestamp}
 
 # URL del servidor
-url = 'http://127.0.0.1:5000/envio-datos'
+url = 'http://127.0.0.1:5000/publishers'
 
 # Crear y empezar un hilo para el termostato
 hilo = threading.Thread(target=register_publisher, args=(leer_frecuencia, intervalo, url,publisher))

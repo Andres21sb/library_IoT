@@ -17,7 +17,7 @@ def send_data(url, output_data):
         print('Excepcion -> ', e)
 
 # Función que registra un publisher y envía los datos al servidor
-def register_publisher(func, intervalo, url='https://library-iot.onrender.com/envio-datos',publisher_name='no name'):
+def register_publisher(func, intervalo, url='https://library-iot.onrender.com/publishers',publisher_name='no name'):
     while True:
         # Recolectar los datos
         data = func()
