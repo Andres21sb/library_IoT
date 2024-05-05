@@ -1,3 +1,9 @@
+'''
+autor: Andrés Méndez Solano
+fecha: 2020-05-05
+    
+        Este script se encarga de definir las funciones para la conexión a la base de datos y para insertar los datos en la base de datos
+'''
 # database.py
 import mysql.connector
 from mysql.connector import pooling
