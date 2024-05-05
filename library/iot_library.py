@@ -22,7 +22,10 @@ def register_publisher(func, intervalo, url='https://library-iot.onrender.com/pu
         # Recolectar los datos
         data = func()
         # Encerrar los datos en un diccionario
-        output_data = {'publisher_name':publisher_name,'data': data}
+        output_data = {
+            'publisher_name':publisher_name,
+            'data': data,
+            'save_to_db': save_to_db}
         print('Enviando datos: ', output_data)
 
         # Crear y empezar un nuevo hilo para enviar los datos

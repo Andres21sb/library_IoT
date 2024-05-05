@@ -17,19 +17,20 @@ def envio_datos():
     print('Datos recibidos -> ', data)
     publisher_name = data['publisher_name']
     timestamp = data['data'].pop('timestamp', None)
-
-    for key, value in data['data'].items():
-        attribute_data = {
-            'publisher_name': publisher_name,
-            'attribute_name': key,
-            'attribute_value': value,
-            'timestamp': timestamp
-        }
-        try:
-            insert_data(attribute_data)
-        except Exception as e:
-            print('Error -> ', e)
-            return 'Error saving in db', 500
+    save_to_db = data['save_to_db']
+    if save_to_db:
+        for key, value in data['data'].items():
+            attribute_data = {
+                'publisher_name': publisher_name,
+                'attribute_name': key,
+                'attribute_value': value,
+                'timestamp': timestamp
+            }
+            try:
+                insert_data(attribute_data)
+            except Exception as e:
+                print('Error -> ', e)
+                return 'Error saving in db', 500
 
     return 'Datos recibidos', 200
 
