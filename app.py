@@ -6,6 +6,7 @@ fecha: 2020-04-22
 '''
 
 from flask import Flask, request
+from database import insert_data
 app = Flask(__name__)
 
 # Endpoints
@@ -20,8 +21,11 @@ def test():
 @app.route('/publishers', methods=['POST'])
 def envio_datos():
     data = request.get_json()
-    for key, value in data.items():
-        print(f'{key}: {value}')
+    try:
+        insert_data(data)
+    except Exception as e:
+        print('Error -> ', e)
+        return 'Error saving in db', 500
     return 'Datos recibidos', 200
 
 
