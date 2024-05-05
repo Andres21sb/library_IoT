@@ -9,6 +9,9 @@ import random
 from library.iot_library import register_publisher
 from datetime import datetime
 
+#nombre del publisher
+publisher = 'smartwatch_v1'
+
 # Definir intervalo de tiempo que espera el termostato para volver a hacer la lectura y enviar los datos
 intervalo = 5
 
@@ -25,5 +28,5 @@ def leer_frecuencia():
 url = 'http://127.0.0.1:5000/envio-datos'
 
 # Crear y empezar un hilo para el termostato
-hilo = threading.Thread(target=register_publisher, args=(leer_frecuencia, intervalo, url))
+hilo = threading.Thread(target=register_publisher, args=(leer_frecuencia, intervalo, url,publisher))
 hilo.start()

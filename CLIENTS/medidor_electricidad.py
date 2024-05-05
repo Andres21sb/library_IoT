@@ -12,6 +12,9 @@ from datetime import datetime
 # Definir intervalo de tiempo que espera el termostato para volver a hacer la lectura y enviar los datos
 intervalo = 5
 
+#nombre del publisher
+publisher = 'electricidad_v1'
+
 #Funcion para simular la lectura de la corriente
 def leer_corriente():
     #Simular lectura dentro de un rango especifico
@@ -26,5 +29,5 @@ def leer_corriente():
 url = 'http://127.0.0.1:5000/envio-datos'
 
 # Crear y empezar un hilo para el termostato
-hilo = threading.Thread(target=register_publisher, args=(leer_corriente, intervalo, url))
+hilo = threading.Thread(target=register_publisher, args=(leer_corriente, intervalo, url,publisher))
 hilo.start()
