@@ -23,9 +23,10 @@ def test():
 # Ruta para manejar la petición de EnvioDatos
 @app.route('/envio-datos', methods=['POST'])
 def envio_datos():
-    data = request.form['data']
-    print('Datos recibidos: ', data.temperatura)
-    return 'Datos recibidos'
+    data = request.get_json()
+    for key, value in data.items():
+        print(f'{key}: {value}')
+    return 'Datos recibidos', 200
 
 
 # Ruta para manejar la petición de EnvioLog

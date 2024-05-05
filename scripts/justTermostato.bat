@@ -1,0 +1,1 @@
+start python ../CLIENTS/termostato.py
