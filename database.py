@@ -42,3 +42,34 @@ def insert_data(data):
 
     cnx.commit()
     close_connection(cnx)
+
+# revisar si publisher existe
+def check_publisher(user):
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    query = ("SELECT * FROM publisher WHERE publisher_name = %s")
+    cursor.execute(query, (user,))
+    result = cursor.fetchone()
+
+    close_connection(cnx)
+
+    return result
+
+# registrar publisher
+def register_publisher(publisher):
+    # revisar si publisher ya existe
+    if check_publisher(publisher):
+        return
+    print('Registrando publisher ', publisher, ' en la base de datos')
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    add_data = ("INSERT INTO publisher "
+                "(publisher_name) "
+                "VALUES (%s)")
+    data_data = (publisher,)
+    cursor.execute(add_data, data_data)
+
+    cnx.commit()
+    close_connection(cnx)
