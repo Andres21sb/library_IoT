@@ -7,7 +7,7 @@ fecha: 2020-04-22
 
 # app.py
 from flask import Flask, request
-from database import insert_data,register_publisher
+from database import insert_data,register_publisher,register_subscriber
 
 app = Flask(__name__)
 
@@ -38,13 +38,25 @@ def envio_datos():
 
     return 'Datos recibidos', 200
 
-# Ruta para registrar los publishers
-@app.route('/publishers', methods=['POST'])
-def registrar_publisher():
+# Ruta para registrar los subscriptores
+@app.route('/subscribers', methods=['POST'])
+def register_subscriber():
     data = request.get_json()
     print('Datos recibidos -> ', data)
-    publisher_name = data['publisher_name']
-    return 'Publisher registrado', 200
+    # Extraer nombre del subscriptor
+    subscriber_name = data['subscriber_name']
+    # Extraer array de topics (publisher names)
+    topic = data['topic']
+    save_to_db = data['save_to_db']
+    if save_to_db:
+        try:
+            # registrar subscriber
+            register_subscriber(subscriber_name, topic)
+        except Exception as e:
+            print('Error -> ', e)
+            return 'Error saving subscriber in db', 500
+
+    return 'Datos recibidos', 200
 
 if __name__ == '__main__':
     app.run(debug=True)

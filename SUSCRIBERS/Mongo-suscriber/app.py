@@ -7,7 +7,10 @@ fecha: 2020-05-08
 
 # app.py
 from flask import Flask, request
+from library.iot_library import register_subscriber
 
+# registrar un subscriber
+register_subscriber('Mongo-suscriber',[])
 
 app = Flask(__name__)
 #hello world

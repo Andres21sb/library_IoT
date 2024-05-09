@@ -29,5 +29,5 @@ def leer_frecuencia():
 url = 'https://library-iot.onrender.com/publishers'
 
 # Crear y empezar un hilo para el termostato
-hilo = threading.Thread(target=register_publisher, args=(leer_frecuencia, intervalo, url,publisher))
+hilo = threading.Thread(target=register_publisher, args=(leer_frecuencia, intervalo, url,publisher,True))
 hilo.start()

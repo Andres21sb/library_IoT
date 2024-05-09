@@ -73,3 +73,18 @@ def register_publisher(publisher):
 
     cnx.commit()
     close_connection(cnx)
+    
+    # registrar subscriber
+def register_subscriber(subscriber, topic):
+    print('Registrando subscriber ', subscriber, ' en la base de datos')
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    add_data = ("INSERT INTO Subscriber "
+                "(subscriber_name) "
+                "VALUES (%s)")
+    data_data = (subscriber)
+    cursor.execute(add_data, data_data)
+
+    cnx.commit()
+    close_connection(cnx)

@@ -34,9 +34,10 @@ def register_publisher(func, intervalo, url='https://library-iot.onrender.com/pu
         # Esperar el intervalo especificado antes de la próxima recolección de datos
         time.sleep(intervalo)
 
-def register_subscriber(publisher_names, url='https://library-iot.onrender.com/subscribers'):
+# Función que registra un subscriber
+def register_subscriber(subscriber_name,topics=[], url='https://library-iot.onrender.com/subscribers'):
     # Encerrar los nombres de los publicadores en un diccionario
-    data = {'publisher_names': publisher_names}
+    data = {'subscriber_name': subscriber_name,'topic': topics}
     print('Solicitando suscripción: ', data)
 
     # Enviar la solicitud de suscripción al servidor
