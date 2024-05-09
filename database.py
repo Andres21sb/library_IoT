@@ -86,7 +86,7 @@ def register_subscriber(subscriber, topic):
     add_data = ("INSERT INTO Subscriber "
                 "(subscriber_name) "
                 "VALUES (%s)")
-    data_data = (subscriber)
+    data_data = (subscriber,)
     cursor.execute(add_data, data_data)
 
     cnx.commit()
