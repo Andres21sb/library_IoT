@@ -17,7 +17,7 @@ def hello_world():
     return 'Hello, World!'
 
 # registrar un subscriber
-register_subscriber('Mongo-suscriber',[])
+register_subscriber('Mongo-suscriber',['termostato_v1','smartwatch_v1'])
 
 
 if __name__ == '__main__':

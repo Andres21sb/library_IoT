@@ -76,9 +76,11 @@ def register_publisher(publisher):
     
     # registrar subscriber
 def register_subscriber(subscriber, topic):
-    # revisar si subscriber ya existe
-    if check_subscriber(subscriber):
-        return
+    # revisar si subscriber ya existe y devolver su id que retorna el check_subscriber
+    id = check_subscriber(subscriber)
+    if id:
+        return id[0]
+    
     print('Registrando subscriber ', subscriber, ' en la base de datos')
     cnx = get_connection()
     cursor = cnx.cursor()
@@ -88,19 +90,38 @@ def register_subscriber(subscriber, topic):
                 "VALUES (%s)")
     data_data = (subscriber,)
     cursor.execute(add_data, data_data)
+    
+    # obtener el id del subscriber
+    id = check_subscriber(subscriber)
+    print('Subscriber id: ', id[0])
 
     cnx.commit()
     close_connection(cnx)
+    return id[0]
     
 # check if subscriber exists
 def check_subscriber(subscriber):
     cnx = get_connection()
     cursor = cnx.cursor()
 
-    query = ("SELECT * FROM Subscriber WHERE subscriber_name = %s")
+    query = ("SELECT subscriber_id FROM Subscriber WHERE subscriber_name = %s")
     cursor.execute(query, (subscriber,))
     result = cursor.fetchone()
 
     close_connection(cnx)
 
     return result
+
+# Ingresar subscripcion
+def insert_subscription(data):
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    add_data = ("INSERT INTO Subscriptions "
+                "(publisher_name, subscriber_id) "
+                "VALUES (%s, %s)")
+    data_data = (data['publisher_name'], data['subscriber_id'])
+    cursor.execute(add_data, data_data)
+
+    cnx.commit()
+    close_connection(cnx)

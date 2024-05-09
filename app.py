@@ -7,7 +7,7 @@ fecha: 2020-04-22
 
 # app.py
 from flask import Flask, request
-from database import insert_data,register_publisher,register_subscriber
+from database import insert_data,register_publisher,register_subscriber,insert_subscription
 
 app = Flask(__name__)
 
@@ -46,12 +46,19 @@ def register_subscriber_from_api():
     # Extraer nombre del subscriptor
     subscriber_name = data['subscriber_name']
     # Extraer array de topics (publisher names)
-    topic = data['topic']
+    topics = data['topics']
     
-    print('Subscriber name -> ', subscriber_name, ' Topic -> ', topic)
+    print('Subscriber name -> ', subscriber_name, ' Topic -> ', topics)
     try:
         # registrar subscriber
-        register_subscriber(subscriber_name, topic)
+        subscriber_id = register_subscriber(subscriber_name)
+        # registrar suscripciones
+        for topic in topics:
+            subscription_data = {
+                'publisher_name': topic,
+                'subscriber_id': subscriber_id
+            }
+            insert_subscription(subscription_data)
     except Exception as e:
         print('Error -> ', e)
         return 'Error saving subscriber in db', 500
