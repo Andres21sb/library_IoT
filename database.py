@@ -75,7 +75,7 @@ def register_publisher(publisher):
     close_connection(cnx)
     
     # registrar subscriber
-def register_subscriber(subscriber, topic):
+def register_subscriber(subscriber):
     # revisar si subscriber ya existe y devolver su id que retorna el check_subscriber
     id = check_subscriber(subscriber)
     if id:
