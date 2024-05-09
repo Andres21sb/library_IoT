@@ -45,13 +45,15 @@ def register_subscriber_from_api():
     print('Datos recibidos -> ', data)
     # Extraer nombre del subscriptor
     subscriber_name = data['subscriber_name']
+    # Extraer endpoint del subscriptor
+    subscriber_endpoint = data['suscriber_endpoint']
     # Extraer array de topics (publisher names)
     topics = data['topics']
     
     print('Subscriber name -> ', subscriber_name, ' Topic -> ', topics)
     try:
         # registrar subscriber
-        subscriber_id = register_subscriber(subscriber_name)
+        subscriber_id = register_subscriber(subscriber_name, subscriber_endpoint)
         # registrar suscripciones
         for topic in topics:
             subscription_data = {

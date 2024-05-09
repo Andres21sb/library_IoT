@@ -35,9 +35,11 @@ def register_publisher(func, intervalo, url='https://library-iot.onrender.com/pu
         time.sleep(intervalo)
 
 # Función que registra un subscriber
-def register_subscriber(subscriber_name,topics=[], url='https://library-iot.onrender.com/subscribers'):
+def register_subscriber(subscriber_name,topics=[],suscriber_endpoint='https://mongo-suscriber.onrender.com/data', url='https://library-iot.onrender.com/subscribers'):
     # Encerrar los nombres de los publicadores en un diccionario
-    data = {'subscriber_name': subscriber_name,'topics': topics}
+    data = {'subscriber_name': subscriber_name,
+            'topics': topics,
+            'suscriber_endpoint': suscriber_endpoint}
     print('Solicitando suscripción: ', data)
 
     # Enviar la solicitud de suscripción al servidor

@@ -75,7 +75,7 @@ def register_publisher(publisher):
     close_connection(cnx)
     
     # registrar subscriber
-def register_subscriber(subscriber):
+def register_subscriber(subscriber, suscriber_endpoint):
     # revisar si subscriber ya existe y devolver su id que retorna el check_subscriber
     id = check_subscriber(subscriber)
     if id:
@@ -88,9 +88,9 @@ def register_subscriber(subscriber):
     cursor = cnx.cursor()
 
     add_data = ("INSERT INTO Subscriber "
-                "(subscriber_name) "
+                "(subscriber_name,endpoint_url) "
                 "VALUES (%s)")
-    data_data = (subscriber,)
+    data_data = (subscriber, suscriber_endpoint,)
     cursor.execute(add_data, data_data)
     
     # obtener el id del subscriber
