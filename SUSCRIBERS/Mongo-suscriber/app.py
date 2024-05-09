@@ -16,9 +16,10 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-# registrar un subscriber
-register_subscriber('Mongo-suscriber',['termostato_v1','smartwatch_v1'])
+
 
 
 if __name__ == '__main__':
+    # registrar un subscriber
+    register_subscriber('Mongo-suscriber',['electricidad_v1'])
     app.run(debug=True)

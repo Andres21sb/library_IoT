@@ -123,7 +123,9 @@ def insert_subscription(data):
     add_data = ("INSERT INTO Subscriptions "
                 "(publisher_name, subscriber_id) "
                 "VALUES (%s, %s)")
-    data_data = (data['publisher_name'], data['subscriber_id'])
+    # Extraer el valor entero de subscriber_id
+    subscriber_id = data['subscriber_id'][0] if isinstance(data['subscriber_id'], tuple) else data['subscriber_id']
+    data_data = (data['publisher_name'], subscriber_id)
     cursor.execute(add_data, data_data)
 
     cnx.commit()
