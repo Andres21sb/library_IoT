@@ -58,6 +58,7 @@ def register_subscriber_from_api():
                 'publisher_name': topic,
                 'subscriber_id': subscriber_id
             }
+            print('Subscription data -> ', subscription_data)
             insert_subscription(subscription_data)
     except Exception as e:
         print('Error -> ', e)

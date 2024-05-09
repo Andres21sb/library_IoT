@@ -116,6 +116,7 @@ def check_subscriber(subscriber):
 def insert_subscription(data):
     cnx = get_connection()
     cursor = cnx.cursor()
+    print('Registrando subscripción ', data, ' en la base de datos')
 
     add_data = ("INSERT INTO Subscriptions "
                 "(publisher_name, subscriber_id) "
