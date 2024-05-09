@@ -23,8 +23,6 @@ def envio_datos():
         try:
             # registrar publisher
             register_publisher(publisher_name)
-            if not register_publisher(publisher_name):
-                return 'Publisher no registrado', 400
             for key, value in data['data'].items():
                 attribute_data = {
                     'publisher_name': publisher_name,
