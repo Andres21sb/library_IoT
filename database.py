@@ -113,9 +113,27 @@ def check_subscriber(subscriber):
     close_connection(cnx)
 
     return result
+# revisar si la subscripcion existe
+def check_subscription_exists(data):
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    query = ("SELECT * FROM Subscriptions WHERE publisher_name = %s AND subscriber_id = %s")
+    # Extract the integer value of subscriber_id
+    subscriber_id = data['subscriber_id'][0] if isinstance(data['subscriber_id'], tuple) else data['subscriber_id']
+    cursor.execute(query, (data['publisher_name'], subscriber_id))
+    result = cursor.fetchone()
+
+    close_connection(cnx)
+
+    return result is not None
 
 # Ingresar subscripcion
 def insert_subscription(data):
+    # revisar si la subscripcion ya existe
+    if check_subscription_exists(data):
+        print('Subscripcion ya existe en la base de datos')
+    return
     cnx = get_connection()
     cursor = cnx.cursor()
     print('Registrando subscripción ', data, ' en la base de datos')
