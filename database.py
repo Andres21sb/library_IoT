@@ -89,7 +89,7 @@ def register_subscriber(subscriber, suscriber_endpoint):
 
     add_data = ("INSERT INTO Subscriber "
                 "(subscriber_name,endpoint_url) "
-                "VALUES (%s)")
+                "VALUES (%s,%s)")
     data_data = (subscriber, suscriber_endpoint)
     cursor.execute(add_data, data_data)
     
