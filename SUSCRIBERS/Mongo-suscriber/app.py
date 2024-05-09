@@ -9,14 +9,16 @@ fecha: 2020-05-08
 from flask import Flask, request
 from library.iot_library import register_subscriber
 
-# registrar un subscriber
-register_subscriber('Mongo-suscriber',[])
 
 app = Flask(__name__)
 #hello world
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
+
+# registrar un subscriber
+register_subscriber('Mongo-suscriber',[])
+
 
 if __name__ == '__main__':
     app.run(debug=True)

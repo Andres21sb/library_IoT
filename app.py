@@ -47,6 +47,8 @@ def register_subscriber_from_api():
     subscriber_name = data['subscriber_name']
     # Extraer array de topics (publisher names)
     topic = data['topic']
+    
+    print('Subscriber name -> ', subscriber_name, ' Topic -> ', topic)
     try:
         # registrar subscriber
         register_subscriber(subscriber_name, topic)
