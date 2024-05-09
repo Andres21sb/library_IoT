@@ -92,7 +92,7 @@ def register_subscriber(subscriber):
     cursor.execute(add_data, data_data)
     
     # obtener el id del subscriber
-    id = check_subscriber(subscriber)
+    id = cursor.lastrowid
     print('Subscriber id: ', id[0])
 
     cnx.commit()
