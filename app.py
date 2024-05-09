@@ -40,21 +40,19 @@ def envio_datos():
 
 # Ruta para registrar los subscriptores
 @app.route('/subscribers', methods=['POST'])
-def register_subscriber():
+def register_subscriber_from_api():
     data = request.get_json()
     print('Datos recibidos -> ', data)
     # Extraer nombre del subscriptor
     subscriber_name = data['subscriber_name']
     # Extraer array de topics (publisher names)
     topic = data['topic']
-    save_to_db = data['save_to_db']
-    if save_to_db:
-        try:
-            # registrar subscriber
-            register_subscriber(subscriber_name, topic)
-        except Exception as e:
-            print('Error -> ', e)
-            return 'Error saving subscriber in db', 500
+    try:
+        # registrar subscriber
+        register_subscriber(subscriber_name, topic)
+    except Exception as e:
+        print('Error -> ', e)
+        return 'Error saving subscriber in db', 500
 
     return 'Datos recibidos', 200
 

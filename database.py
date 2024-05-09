@@ -76,6 +76,9 @@ def register_publisher(publisher):
     
     # registrar subscriber
 def register_subscriber(subscriber, topic):
+    # revisar si subscriber ya existe
+    if check_subscriber(subscriber):
+        return
     print('Registrando subscriber ', subscriber, ' en la base de datos')
     cnx = get_connection()
     cursor = cnx.cursor()
@@ -88,3 +91,16 @@ def register_subscriber(subscriber, topic):
 
     cnx.commit()
     close_connection(cnx)
+    
+# check if subscriber exists
+def check_subscriber(subscriber):
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    query = ("SELECT * FROM Subscriber WHERE subscriber_name = %s")
+    cursor.execute(query, (subscriber,))
+    result = cursor.fetchone()
+
+    close_connection(cnx)
+
+    return result
