@@ -79,6 +79,8 @@ def register_subscriber(subscriber):
     # revisar si subscriber ya existe y devolver su id que retorna el check_subscriber
     id = check_subscriber(subscriber)
     if id:
+        print('Subscriber ya existe en la base de datos')
+        print('Subscriber id: ', id)
         return id
     
     print('Registrando subscriber ', subscriber, ' en la base de datos')
@@ -93,7 +95,7 @@ def register_subscriber(subscriber):
     
     # obtener el id del subscriber
     id = cursor.lastrowid
-    print('Subscriber id: ', id[0])
+    print('Subscriber id: ', id)
 
     cnx.commit()
     close_connection(cnx)
