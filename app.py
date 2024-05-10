@@ -56,6 +56,7 @@ def register_subscriber_from_api():
         subscriber_id = register_subscriber(subscriber_name, subscriber_endpoint)
         # registrar suscripciones
         for topic in topics:
+            print('Topic -> ', topic)
             subscription_data = {
                 'publisher_name': topic,
                 'subscriber_id': subscriber_id
