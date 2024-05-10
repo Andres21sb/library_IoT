@@ -148,3 +148,18 @@ def insert_subscription(data):
 
     cnx.commit()
     close_connection(cnx)
+    
+# obtener los suscriptores de un publisher
+def get_subscribers(publisher):
+    cnx = get_connection()
+    cursor = cnx.cursor()
+
+    query = ("SELECT endpoint_url FROM Subscriptions "
+             "JOIN Subscriber ON Subscriptions.subscriber_id = Subscriber.subscriber_id "
+             "WHERE publisher_name = %s")
+    cursor.execute(query, (publisher,))
+    result = cursor.fetchall()
+
+    close_connection(cnx)
+
+    return result

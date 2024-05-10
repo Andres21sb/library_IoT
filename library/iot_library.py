@@ -50,3 +50,4 @@ def register_subscriber(subscriber_name,topics=[],suscriber_endpoint='https://mo
         print('Suscripción exitosa')
     else:
         print('Error en la suscripción: ', response.text)
+    return response.text
