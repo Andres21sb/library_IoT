@@ -7,7 +7,9 @@ fecha: 2020-04-22
 
 # app.py
 from flask import Flask, request
-from database import insert_data,register_publisher,register_subscriber,insert_subscription
+from database import insert_data,register_publisher,register_subscriber,insert_subscription, get_subscribers
+from library.iot_library import Notify_subscribers
+
 
 app = Flask(__name__)
 
@@ -35,7 +37,19 @@ def envio_datos():
         except Exception as e:
             print('Error -> ', e)
             return 'Error saving in db', 500
-
+    # Notificar a los subscriptores
+    try:
+        # obtener array de subscriptores
+        print('Solitando subscriptores -> ', publisher_name)
+        subscribers = get_subscribers(publisher_name)
+        print('Subscriptores -> ', subscribers)
+        # notificar a los subscriptores
+        print('Notificando a los subscriptores ')
+        Notify_subscribers(subscribers, data['data'])
+        print('Notificación enviada')
+    except Exception as e:
+        print('Error -> ', e)
+        return 'Error notificando a los subscriptores', 500
     return 'Datos recibidos', 200
 
 # Ruta para registrar los subscriptores

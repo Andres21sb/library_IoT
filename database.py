@@ -48,7 +48,7 @@ def check_publisher(user):
     cnx = get_connection()
     cursor = cnx.cursor()
 
-    query = ("SELECT * FROM publisher WHERE publisher_name = %s")
+    query = ("SELECT * FROM Publisher WHERE publisher_name = %s")
     cursor.execute(query, (user,))
     result = cursor.fetchone()
 
@@ -65,7 +65,7 @@ def register_publisher(publisher):
     cnx = get_connection()
     cursor = cnx.cursor()
 
-    add_data = ("INSERT INTO publisher "
+    add_data = ("INSERT INTO Publisher "
                 "(publisher_name) "
                 "VALUES (%s)")
     data_data = (publisher,)

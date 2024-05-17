@@ -51,3 +51,26 @@ def register_subscriber(subscriber_name,topics=[],suscriber_endpoint='https://mo
     else:
         print('Error en la suscripción: ', response.text)
     return response.text
+
+# Función que envía los datos al subscriber
+def send_data_to_subscriber(url, output_data):
+    try:
+        response = requests.post(url, json=output_data)
+        print(response.text)
+    except requests.exceptions.RequestException as e:
+        print('Excepcion -> ', e)
+
+# Función que notifica a los subscriptores
+def Notify_subscribers(subscribers, data):
+    # Iterar sobre los subscriptores
+    # En subscribers tengo un array con los endpoints de los subscriptores 
+    for subscriber in subscribers:
+        # Encerrar los datos en un diccionario
+        output_data = {
+            'data': data
+        }
+        print('Notificando a: ', subscriber[0])
+
+        # Crear y empezar un nuevo hilo para enviar los datos
+        threading.Thread(target=send_data_to_subscriber, args=(subscriber[0], output_data)).start()
+        
