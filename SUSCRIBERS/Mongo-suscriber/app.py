@@ -8,12 +8,13 @@ fecha: 2020-05-08
 # app.py
 from flask import Flask, request
 from library.iot_library import register_subscriber
+from database import insert_data
 
 
 app = Flask(__name__)
 #hello world
-@app.route('/')
-def hello_world():
+@app.route('/subscribe')
+def subscribe():
         # registrar un subscriber
     print('Registrando subscriber')
     try:
@@ -30,6 +31,13 @@ def hello_world():
 def get_data():
     data = request.get_json()
     print('Datos recibidos -> ', data)
+    try:
+        print('Guardando datos en la base de datos')
+        insert_data(data)
+        print('Datos guardados en la base de datos')
+    except Exception as e:
+        print('Error -> ', e)
+        return 'Error saving in db', 500
     return 'Datos recibidos', 200
 
 
