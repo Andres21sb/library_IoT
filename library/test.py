@@ -51,7 +51,6 @@ class TestNotifySubscribers(unittest.TestCase):
 
 # Pruebas de library/iot_library.py
 class TestLibrary(unittest.TestCase):
-    
     # Prueba de la función send_data que se ejecuta de manera correcta
     def test_send_data(self):
         print('Test Send Data')
@@ -91,6 +90,20 @@ class TestLibrary(unittest.TestCase):
         suscriber_endpoint = 'https://mongo-suscriber.onrender.com/data'
         url = 'https://library-iot.onrender.com/subscribers'
         response_text = register_subscriber(subscriber_name, topics, suscriber_endpoint, url)
+
+    #prueba de register_publisher
+    def test_register_publisher(self):
+        def test_data_function():
+            return "Test Data"
+        
+        intervalo = 5
+        url = 'https://library-iot.onrender.com/publishers'
+        publisher_name = 'TestPublisher'
+        save_to_db = True
+        register_publisher(test_data_function, intervalo, url, publisher_name, save_to_db, True) 
+    
+
+
 
 if __name__ == '__main__':
     cov.stop()
