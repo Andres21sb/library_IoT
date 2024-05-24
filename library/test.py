@@ -3,7 +3,7 @@ import requests
 import time
 import threading
 import coverage
-from library.iot_library import send_data, register_publisher, register_subscriber, send_data_to_subscriber, Notify_subscribers, my_partial_fn
+from library.iot_library import send_data, register_publisher, register_subscriber, send_data_to_subscriber, Notify_subscribers
 # Inicializar la cobertura
 cov = coverage.Coverage()
 cov.start()
@@ -64,11 +64,33 @@ class TestLibrary(unittest.TestCase):
     '''
     def test_send_data_exception(self):
         print('Test Send Data Exception')
-        url = 'https://library-iot.onrender.comm/publishers'
+        url = 'https://library-iot.onrender.comMOCK/publishers'
         output_data = {'publisher_name': 'TestPublisher', 'data': {'frecuencia': 125, 'timestamp': '00:00:28 2024-05-24'}, 'save_to_db': True}
         send_data(url, output_data)
 
-
+    def test_notify_subscribers(self):
+        subscribers = [('https://mongo-suscriber.onrender.com/data',)]
+        data = 'Test Notification Data'
+        Notify_subscribers(subscribers, data)
+    # Provocar excepcion en send_data_to_subscriber
+    def test_notify_subscribers_exception(self):
+        subscribers = [('',)]
+        data = 'Test Notification Data'
+        Notify_subscribers(subscribers, data)
+    # Prueba de register_publisher
+    def test_register_subscriber(self):
+        subscriber_name = 'TestSubscriber'
+        topics = ['electricidad_v1']
+        suscriber_endpoint = 'https://mongo-suscriber.onrender.com/data'
+        url = 'https://library-iot.onrender.com/subscribers'
+        response_text = register_subscriber(subscriber_name, topics, suscriber_endpoint, url)
+    # Provocar excepcion en register_subscriber
+    def test_register_subscriber_exception(self):
+        subscriber_name = 'TestSubscriber'
+        topics = ['electricidad_v1MOCK']
+        suscriber_endpoint = 'https://mongo-suscriber.onrender.com/data'
+        url = 'https://library-iot.onrender.com/subscribers'
+        response_text = register_subscriber(subscriber_name, topics, suscriber_endpoint, url)
 
 if __name__ == '__main__':
     cov.stop()
